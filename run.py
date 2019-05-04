@@ -12,7 +12,7 @@ def sms_reply():
     current_toll = mopac.get_specific_toll('sb: parmer to 5th/cvz')
     time_saved = distance.calc_time_saved()
 
-    resp.message("Hey Hannah! Toll rate to get home is $" + str(current_toll) + " and  will save you " + str(time_saved) + " minutes.")
+    resp.message("Hey Hannah! Toll rate to get home is $" + str(current_toll) + " and will save you " + str(time_saved) + " minutes.")
     return str(resp)
 
 if __name__ == "__main__":
