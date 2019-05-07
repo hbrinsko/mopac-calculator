@@ -25,7 +25,7 @@ def get_mopac_data(when):
         'Accept': 'application/json, text/javascript, */*; q=0.01',
         'Referer': 'https://www.mobilityauthority.com/pay-your-toll/current-mopac-rates',
         'Connection': 'keep-alive'
-        }
+    }
     payload = when.strftime('starttime=%m%%2F%d%%2F%Y+%H%%3A%M')
     r = requests.post(url, headers=headers, data=payload)
     try:
@@ -52,11 +52,10 @@ def get_specific_toll(route):
         print("Didn't get json data, quitting...")
         sys.exit(1)
 
-    nice_data= parse_mopac_data(raw_data)
+    nice_data = parse_mopac_data(raw_data)
     route = route.lower()
-    print(nice_data[route])
-    return nice_data[route]
-
+    print('${:,.2f}'.format(nice_data[route]))
+    return '${:,.2f}'.format(nice_data[route])
 
 
 if __name__ == '__main__':

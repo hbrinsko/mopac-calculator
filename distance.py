@@ -32,7 +32,7 @@ def calc_time_saved():
     time_without = calculate_without_tolls(gmaps, now)
     time_with = calculate_with_tolls(gmaps, now)
     diff = time_without - time_with
-    return diff
+    return str(diff)
 
 
 if __name__ == '__main__':
