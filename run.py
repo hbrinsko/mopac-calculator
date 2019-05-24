@@ -2,6 +2,7 @@ from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
 import mopac
 import distance
+import messaging
 import config
 
 app = Flask(__name__)
@@ -12,27 +13,24 @@ def sms_reply():
     body = request.values.get('Body', None)
     resp = MessagingResponse()
 
-    if body == 'nb':
+    #Determine direction user is asking for
+    intent = messaging.process_intent(body)
+
+    #Call Mopac and Google Maps API endpoints for appropriate direction
+    if intent == 'n':
         current_toll = mopac.get_specific_toll('nb: cvz to 183')
         time_saved = distance.calc_time_saved(
-        config.HOME_ADDRESS, config.WORK_ADDRESS)
-    elif body == 'sb':
+            config.HOME_ADDRESS, config.WORK_ADDRESS)
+    elif intent == 's':
         current_toll = mopac.get_specific_toll('sb: 2222 to 5th/cvz')
         time_saved = distance.calc_time_saved(
-        config.WORK_ADDRESS, config.HOME_ADDRESS)
+            config.WORK_ADDRESS, config.HOME_ADDRESS)
     else:
-        resp.message('Please reply which direction (nb/sb) you are heading.')
+        resp.message('Please reply which direction you are heading on MoPac.')
         return(str(resp))
 
-    if(time_saved == '0'):
-        msg = "Don't take the toll, it won't save you any time and will cost you " + \
-            current_toll + "."
-    elif(time_saved == '1'):
-        msg = "Hey! Toll rate to get home is " + current_toll + \
-            " and will save you " + time_saved + " minute."
-    else:
-        msg = "Hey! Toll rate to get home is " + current_toll + \
-            " and will save you " + time_saved + " minutes."
+    #Generate response message
+    msg = messaging.build_message(intent, time_saved, current_toll)
 
     resp.message(msg)
     return str(resp)
