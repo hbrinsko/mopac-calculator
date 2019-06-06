@@ -13,10 +13,10 @@ def sms_reply():
     body = request.values.get('Body', None)
     resp = MessagingResponse()
 
-    #Determine direction user is asking for
+    # Determine which direction (northbound/southbound) user is asking for
     intent = messaging.process_intent(body)
 
-    #Call Mopac and Google Maps API endpoints for appropriate direction
+    # Call Mopac and Google Maps API endpoints for appropriate direction
     if intent == 'n':
         current_toll = mopac.get_specific_toll('nb: cvz to 183')
         time_saved = distance.calc_time_saved(
@@ -29,7 +29,7 @@ def sms_reply():
         resp.message('Please reply which direction you are heading on MoPac.')
         return(str(resp))
 
-    #Generate response message
+    # Generate response message
     msg = messaging.build_message(intent, time_saved, current_toll)
 
     resp.message(msg)
