@@ -5,6 +5,8 @@
 
 This application allows the user to see how much time they can save by taking the MoPac Express Lane, along with providing the current toll rate for a specified direction (northbound vs southbound).
 
+![Screenshot of conversation with Mopac bot](/screenshot.jpeg)
+
 
 ## Acquire API Keys
 Before you can run this project, you will need to set up accounts with Twilio and Google and set up the following in config.py:
