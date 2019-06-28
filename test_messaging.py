@@ -18,12 +18,12 @@ def test_error():
     assert intent == "error"
 
 def test_no_time_savings():
-    msg = build_message("n", "0", "$3.00")
+    msg = build_message("n", 0, "$3.00")
     assert msg == "Don't take the toll, it won't save you any time and will cost you $3.00."
 
 
 def test_home():
-    msg = build_message("s", "1", "$3.00")
+    msg = build_message("s", 1, "$3.00")
     assert msg == "Toll rate to get back home is $3.00 and will save you 1 minute."
 
 

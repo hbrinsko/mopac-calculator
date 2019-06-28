@@ -34,7 +34,7 @@ def calc_time_saved(origin, destination):
     time_without = calculate_without_tolls(gmaps, now, origin, destination)
     time_with = calculate_with_tolls(gmaps, now, origin, destination)
     diff = time_without - time_with
-    return str(diff)
+    return int(diff)
 
 
 if __name__ == '__main__':

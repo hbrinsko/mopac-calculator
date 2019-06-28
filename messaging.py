@@ -33,14 +33,17 @@ def build_message(intent, time_saved, toll):
     elif intent == "s":
         destination = "back home"
 
-    if(time_saved == '0'):
+    if(time_saved < 0):
+        msg = "Because this toll road very poorly designed, taking MoPac will cost you " + \
+            toll + " dollars and " + (str(abs(time_saved))) + " minutes of your life."
+    elif(time_saved == 0):
         msg = "Don't take the toll, it won't save you any time and will cost you " + \
             toll + "."
-    elif(time_saved == '1'):
+    elif(time_saved == 1):
         msg = "Toll rate to get " + destination + " is " + toll + \
-            " and will save you " + time_saved + " minute."
+            " and will save you " + str(time_saved) + " minute."
     else:
         msg = "Toll rate to get " + destination + " is " + toll + \
-            " and will save you " + time_saved + " minutes."
+            " and will save you " + str(time_saved) + " minutes."
 
     return msg
