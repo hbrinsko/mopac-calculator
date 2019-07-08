@@ -30,3 +30,8 @@ def test_home():
 def test_work():
     msg = build_message("n", "2", "$3.00")
     assert msg == "Toll rate to get to work is $3.00 and will save you 2 minutes."
+
+
+def test_negative():
+    msg = build_message("n", -6, "$3.00")
+    assert msg == "Because this toll road very poorly designed, taking MoPac will cost you $3.00 dollars and 6 minutes of your life."
